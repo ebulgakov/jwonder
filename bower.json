@@ -1,0 +1,29 @@
+{
+  "name": "jwonder",
+  "version": "0.2.0",
+  "authors": [
+    "Evgeniy Bulgakov <zoom81@ya.ru>"
+  ],
+  "description": "jQuery-plugin for view your screenshots",
+  "main": "jwonder.js",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "jquery",
+    "screenshot",
+    "view",
+    "image"
+  ],
+  "license": "MIT",
+  "homepage": "http://wonderbrowser.ru/",
+  "ignore": [
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2"
+  }
+}
