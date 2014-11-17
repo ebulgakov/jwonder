@@ -1,10 +1,10 @@
 (function($){
 	$.fn.jwonder = function(options) {
-		options = $.extend({ 
+		options = $.extend({
 			color: "#000000",
 			shadow: "#000000",
 			aChannel: "0.8"
-		}, options);   
+		}, options);
 		return this.each(function () {
 			var self = $(this);
 			self.title = self.attr("title");
@@ -22,7 +22,7 @@
 				if (link.substring(0,8) == "https://") {
 					return link.substring(8);
 				} else if (link.substring(0,7) == "http://") {
-					
+
 					return link.substring(7);
 				} else if (link.substring(0,1) == "/") {
 					return location.href.split("/")[2]+link;
@@ -54,9 +54,9 @@
 				return shadow;
 			};
 			self.convertRGB = function (elem) {
-				if (elem.charAt(0)=="#") 
+				if (elem.charAt(0)=="#")
 					return self.convertRGB(elem.substring(1,7));
-			
+
 				colorRGB = parseInt(elem.substring(0,2),16)+", ";
 				colorRGB += parseInt(elem.substring(2,4),16)+", ";
 				colorRGB += parseInt(elem.substring(4,6),16);
@@ -67,7 +67,7 @@
 			} else {
 				var linkBrowser = 'href="http://'+self.link()+'"';
 			}
-			browser = '<div class="browser" style="max-width:'+self.width()+'px;'+self.bg(options.color)+self.shadow()+'"><div class="top"><span class="site">'+self.title+'</span><a class="adr" '+linkBrowser+'><span>http://</span>'+self.link()+'</a></div><a  class="inner" '+linkBrowser+'><img title="'+self.title+'" alt="'+self.title+'" src="'+self.way+'" /></a><div class="bottom"></div></div>';
+			browser = '<div class="jwonder" style="max-width:'+self.width()+'px;'+self.bg(options.color)+self.shadow()+'"><div class="top"><span class="site">'+self.title+'</span><a class="adr" '+linkBrowser+'><span>http://</span>'+self.link()+'</a></div><a  class="inner" '+linkBrowser+'><img title="'+self.title+'" alt="'+self.title+'" src="'+self.way+'" /></a><div class="bottom"></div></div>';
 			self.after(browser).remove();
 		});
 	};
