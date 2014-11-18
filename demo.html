@@ -8,25 +8,23 @@
 	<link rel="stylesheet" href="jwonder.css">
 	<script src="bower_components/jquery/dist/jquery.min.js"></script>
 	<script src="jwonder.js"></script>
-
-
-	<script type="text/javascript">
-		$(window).load(function () {
-			$(".wonder").jwonder();
-			$(".woodwerking").jwonder({
-				"color":"#ff4500",
-				"shadow":"#FFA07A"
-			});
-		});
-
-	</script>
-
-
 </head>
 
 
 <body>
-	<a href="http://nalogi2000.ru" class="wonder" title="Консультант"><img src="example-image.jpg" /></a>
+	<a href="http://wonderbrowser.ru/" class="wonder" title="ВандерБраузер"><img alt="" width="1038" height="848" src="example-image.jpg" /></a>
+	<a href="https://wonderbrowser.ru/" class="wonder" title="ВандерБраузер"><img alt="" width="1038" height="848" src="example-image.jpg" /></a>
+	<a href="/inner-link/" class="wonder" title="ВандерБраузер"><img alt="" width="1038" height="848" src="example-image.jpg" /></a>
+	<a class="wonder-custom" title="ВандерБраузер"><img alt="" width="1038" height="848" src="example-image.jpg" /></a>
 
+	<script type="text/javascript">
+		$(".wonder").jwonder({
+			"target": "_blank"
+		});
+		$(".wonder-custom").jwonder({
+			"color":"#ff4500",
+			"shadow":"#FFA07A",
+		});
+	</script>
 </body>
 </html>

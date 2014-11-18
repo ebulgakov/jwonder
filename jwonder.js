@@ -3,48 +3,55 @@
 		options = $.extend({
 			color: "#000000",
 			shadow: "#000000",
-			aChannel: "0.8"
+			aChannel: "0.8",
+			target: "_self"
 		}, options);
 		return this.each(function () {
 			var self = $(this);
 			self.title = self.attr("title");
 			self.image = self.children("img:eq(0)");
 			self.way = self.image.attr("src");
+			self.size = {
+				width: parseFloat(self.image.attr('width'), 10) + 8,
+				height: self.image.attr('height')
+			};
 			self.link = function () {
 				if (self.attr("href")) {
 					var link = self.attr("href");
 				} else {
 					var link = "127.0.0.1";
-					return link;
 				}
 
-				var link = self.attr("href");
 				if (link.substring(0,8) == "https://") {
-					return link.substring(8);
+					return {
+						protocol: 'https://',
+						link: link.substring(8)
+					};
 				} else if (link.substring(0,7) == "http://") {
-
-					return link.substring(7);
+					return {
+						protocol: 'http://',
+						link: link.substring(7)
+					};
 				} else if (link.substring(0,1) == "/") {
-					return location.href.split("/")[2]+link;
+					return {
+						protocol: 'http://',
+						link: location.href.split("/")[2]+link
+					};
+				} else if(!(self.attr("href"))) {
+					return {
+						protocol: 'http://',
+						link: link
+					};
 				} else {
-					return location.href+link;
+					return {
+						protocol: 'http://',
+						link: location.href+link
+					};
 				}
-			};
-			self.width = function () {
-				self.image.css({
-					"width":"auto",
-					"height":"auto",
-					"max-width":"100%",
-					"max-height":"100%",
-					"min-width":"0",
-					"min-height":"0"
-				});
-				return self.image.width()+8;
 			};
 			self.bg = function (elem) {
 				var background = "background-color: "+elem+";";
 				    background += " background-color: rgba("+self.convertRGB(elem)+", "+options.aChannel+");";
-				    background += "$background-color: "+elem+";";
 				return background;
 			};
 			self.shadow = function (elem) {
@@ -62,12 +69,18 @@
 				colorRGB += parseInt(elem.substring(4,6),16);
 				return colorRGB;
 			}
-			if (self.link() == "127.0.0.1") {
+			if (self.link().link == "127.0.0.1") {
 				var linkBrowser = '';
 			} else {
-				var linkBrowser = 'href="http://'+self.link()+'"';
+				var linkBrowser = 'href="'+ self.link().protocol + self.link().link +'"';
 			}
-			browser = '<div class="jwonder" style="max-width:'+self.width()+'px;'+self.bg(options.color)+self.shadow()+'"><div class="top"><span class="site">'+self.title+'</span><a class="adr" '+linkBrowser+'><span>http://</span>'+self.link()+'</a></div><a  class="inner" '+linkBrowser+'><img title="'+self.title+'" alt="'+self.title+'" src="'+self.way+'" /></a><div class="bottom"></div></div>';
+			browser = '<div class="jwonder" style="max-width:'+self.size.width+'px;'+self.bg(options.color)+self.shadow()+'"><div class="top">' +
+			'<span class="site">'+self.title+'</span>' +
+			'<a class="adr" '+linkBrowser+' target="' + options.target + '">' +
+			'<span>' + self.link().protocol + '</span>'+self.link().link+'</a></div>' +
+			'<a  class="inner" '+linkBrowser+' target="' + options.target + '">' +
+			'<img title="'+self.title+'" alt="'+self.title+'" src="'+self.way+'" /></a><div class="bottom"></div></div>';
+
 			self.after(browser).remove();
 		});
 	};
